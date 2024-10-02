@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "pack"
+version = "0.1.0"
+description = "A Python script for efficiently compressing videos without sacrificing quality"
+authors = ["ivansaul"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.scripts]
+pack = "pack.cli:app"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+typer = "^0.12.5"
+ffmpeg-progress-yield = "^0.9.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.3"
+ruff = "^0.6.8"
+pytest-mock = "^3.14.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
