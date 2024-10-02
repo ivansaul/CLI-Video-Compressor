@@ -1,7 +1,8 @@
 from ffmpeg_progress_yield import FfmpegProgress
+from rich.console import Console
 from rich.progress import Progress
 
-from .helpers import add_affixes
+from .helpers import add_affixes, file_exists
 
 
 def compress_video(
@@ -24,6 +25,15 @@ def compress_video(
         pass
     else:
         output = add_affixes(input_file, suffix="_compressed")
+
+    if file_exists(output) and not override:
+        console = Console()
+        console.print(
+            f" [Skipped][{output}][Already exists]",
+            style="bold green",
+            markup=False,
+        )
+        return
 
     command = [
         "ffmpeg",

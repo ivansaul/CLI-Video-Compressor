@@ -1,8 +1,9 @@
 import subprocess
+from unittest.mock import patch
 
 import pytest
 
-from pack.helpers import add_affixes, is_ffmpeg_installed
+from pack.helpers import add_affixes, file_exists, is_ffmpeg_installed
 
 
 @pytest.mark.parametrize(
@@ -48,3 +49,17 @@ def test_ffmpeg_not_installed(monkeypatch):
     monkeypatch.setattr(subprocess, "run", mock_run)
 
     assert is_ffmpeg_installed() is False
+
+
+@patch("pack.helpers.Path.exists")
+def test_file_exists(mock_exists):
+    """
+    Test file_exists function with different scenarios.
+    """
+    # Simulate that the file exists
+    mock_exists.return_value = True
+    assert file_exists("/path/to/existing_file.txt") is True
+
+    # Simulate that the file does not exist
+    mock_exists.return_value = False
+    assert file_exists("/path/to/non_existent_file.txt") is False
