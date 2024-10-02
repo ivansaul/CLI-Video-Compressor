@@ -52,7 +52,7 @@ def main(
 
     try:
         print(f"[bold green] [Compressing...] {input}[/bold green]")
-        compress_video(input_file=input, output_file=output)
+        compress_video(input_file=input, output_file=output, override=override)
     except Exception as e:
         error_message: str = Constants.ERROR_MESSAGE
         if debug:
