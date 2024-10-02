@@ -27,11 +27,11 @@ def main(
             help=Constants.OUTPUT_HELP_TEXT,
         ),
     ] = None,
-    override: Annotated[
+    overwrite: Annotated[
         bool,
         typer.Option(
             show_default=True,
-            help=Constants.OVERRIDE_HELP_TEXT,
+            help=Constants.OVERWRITE_HELP_TEXT,
         ),
     ] = False,
     debug: Annotated[
@@ -52,7 +52,7 @@ def main(
 
     try:
         print(f"[bold green] [Compressing...] {input}[/bold green]")
-        compress_video(input_file=input, output_file=output, override=override)
+        compress_video(input_file=input, output_file=output, overwrite=overwrite)
     except Exception as e:
         error_message: str = Constants.ERROR_MESSAGE
         if debug:

@@ -8,7 +8,7 @@ from .helpers import add_affixes, file_exists
 def compress_video(
     input_file: str,
     output_file: str | None,
-    override: bool = False,
+    overwrite: bool = False,
 ):
     """
     Compress a video file using FFmpeg and display the progress in a terminal.
@@ -17,7 +17,7 @@ def compress_video(
         input_file (str): The path to the input video file.
         output_file (str | None): The path to the output file. If not provided,
                                   a suffix '_compressed' will be added to the input file name.
-        override (bool): If True, overwrites the output file if it already exists.
+        overwrite (bool): If True, overwrites the output file if it already exists.
                          If False, the process will stop if the output file exists.
     """
 
@@ -26,7 +26,7 @@ def compress_video(
     else:
         output = add_affixes(input_file, suffix="_compressed")
 
-    if file_exists(output) and not override:
+    if file_exists(output) and not overwrite:
         console = Console()
         console.print(
             f" [Skipped][{output}][Already exists]",
@@ -44,7 +44,7 @@ def compress_video(
         "-acodec",
         "aac",
         output,
-        "-y" if override else "-n",
+        "-y" if overwrite else "-n",
     ]
 
     process = FfmpegProgress(command)
