@@ -11,3 +11,4 @@ class Constants:
     FFMPEG_NOT_INSTALLED = "[bold red]ffmpeg is not installed! 💥[/bold red]"
     SUPPORTED_VIDEO_FORMATS = (".mp4", ".mov", ".avi", ".mkv", ".webm")
     COMPRESSED_SUFFIX = "_compressed"
+    FFMPEG_FILE_ALREADY_EXISTS_ERROR_PATTERN = r".*File.*already exists.*"
