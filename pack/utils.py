@@ -1,85 +1,27 @@
-import json
+import os
+from pathlib import Path
 
-from ffmpeg import FFmpeg, Progress  # type: ignore
-from rich.progress import Progress as ProgressBar
-
-from .helpers import add_affixes
+from .constants import Constants
 
 
-def _get_duration(path: str) -> float:
+def list_unprocessed_videos(
+    source: str,
+    skip_suffix: str,
+) -> list[str]:
     """
-    Get the duration of a video file using FFmpeg.
+    Get a list of all unprocessed video files in a directory.
+
     Args:
-        path (str): The path to the video file.
+        source (str): The path to the input directory.
+        skip_suffix (str): The suffix to skip when checking for processed files.
 
     Returns:
-        float: The duration of the video in seconds.
+        list[str]: A list of all unprocessed video files in the input directory.
     """
-    ffprobe = FFmpeg(executable="ffprobe").input(
-        path,
-        print_format="json",
-        show_streams=None,
-    )
-    media = json.loads(ffprobe.execute())
-    duration = media["streams"][0]["duration"]
-    return float(duration)
-
-
-def _get_progress_percentage(progress: Progress, duration: float) -> float:
-    """
-    Calculate the progress percentage of a video file using FFmpeg.
-
-    Args:
-        progress (Progress): The progress object returned by FFmpeg.
-        duration (float): The duration of the source video file in seconds.
-
-    Returns:
-        float: The progress percentage as a float between 0 and 100.
-    """
-    current_time = progress.time.total_seconds()
-    return round(current_time / duration * 100)
-
-
-def compress_video(
-    input_file: str,
-    output_file: str | None = None,
-    overwrite: bool = False,
-):
-    """
-    Compress a video file using FFmpeg and display the progress in a terminal.
-
-    Args:
-        input_file (str): The path to the input video file.
-        output_file (str | None): The path to the output file. If not provided,
-                                  a suffix '_compressed' will be added to the input file name.
-        overwrite (bool): If True, overwrites the output file if it already exists.
-                         If False, the process will stop if the output file exists.
-    """
-
-    if output := output_file:
-        pass
-    else:
-        output = add_affixes(input_file, suffix="_compressed")
-
-    ffmpeg = (
-        FFmpeg()
-        .option("y" if overwrite else "n")
-        .input(input_file)
-        .output(output, vcodec="h264", acodec="aac")
-    )
-
-    with ProgressBar() as progress_bar:
-        task = progress_bar.add_task("", total=100, completed=0)
-
-        duration = _get_duration(input_file)
-
-        @ffmpeg.on("progress")
-        def on_progress(progress: Progress):
-            percentage = _get_progress_percentage(progress, duration)
-            progress_bar.update(task, completed=percentage)
-
-        @ffmpeg.on("completed")
-        def on_completed():
-            progress_bar.update(task, completed=100)
-
-        ffmpeg.execute()
+    videos: list[str] = []
+    for root, _, files in os.walk(source):
+        for file in files:
+            if file.endswith(Constants.SUPPORTED_VIDEO_FORMATS):
+                if not Path(file).stem.endswith(skip_suffix):
+                    videos.append(os.path.join(root, file))
+    return videos

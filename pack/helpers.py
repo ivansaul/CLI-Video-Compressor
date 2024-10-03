@@ -52,3 +52,29 @@ def file_exists(file: str) -> bool:
         bool: True if the file exists, False otherwise.
     """
     return Path(file).exists()
+
+
+def is_file(path: str) -> bool:
+    """
+    Check if a path is a file.
+
+    Args:
+        path (str): The path to the file.
+
+    Returns:
+        bool: True if the path is a file, False otherwise.
+    """
+    return Path(path).is_file()
+
+
+def is_dir(path: str) -> bool:
+    """
+    Check if a path is a directory.
+
+    Args:
+        path (str): The path to the directory.
+
+    Returns:
+        bool: True if the path is a directory, False otherwise.
+    """
+    return Path(path).is_dir()
