@@ -8,7 +8,7 @@ from typing_extensions import Annotated
 
 from .constants import Constants
 from .core import compress_video
-from .helpers import is_dir, is_ffmpeg_installed, is_file
+from .helpers import delete_path, is_dir, is_ffmpeg_installed, is_file
 from .utils import list_unprocessed_videos
 
 app = typer.Typer(rich_markup_mode="rich")
@@ -38,6 +38,13 @@ def main(
             help=Constants.OVERWRITE_HELP_TEXT,
         ),
     ] = False,
+    delete_original: Annotated[
+        bool,
+        typer.Option(
+            help=Constants.DELETE_ORIGINAL_HELP_TEXT,
+            rich_help_panel=Constants.UTILS_PANEL_TEXT,
+        ),
+    ] = False,
     debug: Annotated[
         bool,
         typer.Option(
@@ -63,6 +70,8 @@ def main(
                 markup=False,
             )
             compress_video(input_file=input, output_file=output, overwrite=overwrite)
+            if delete_original:
+                delete_path(input)
         except FFmpegError as e:
             error_message: str = e.message
             if debug:
@@ -94,6 +103,8 @@ def main(
                     input_file=video_path,
                     overwrite=overwrite,
                 )
+                if delete_original:
+                    delete_path(video_path)
             except FFmpegError as e:
                 error_message: str = e.message  # type: ignore
                 if debug:

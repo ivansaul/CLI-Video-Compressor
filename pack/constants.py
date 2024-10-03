@@ -3,6 +3,7 @@ class Constants:
     INPUT_HELP_TEXT = "The input can be a file or a directory. If a directory is provided, all videos in the directory will be processed."
     OUTPUT_HELP_TEXT = "The output file to save the compressed video."
     DEBUG_HELP_TEXT = "Enable debugging."
+    DELETE_ORIGINAL_HELP_TEXT = "Delete the original video after compression."
     OVERWRITE_HELP_TEXT = "Overwrite existing output file."
     UTILS_PANEL_TEXT = "Customization and Utils"
     ERROR_MESSAGE = "An error occurred while compressing the video 💥."
