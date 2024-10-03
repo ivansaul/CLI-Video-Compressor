@@ -1,7 +1,9 @@
 from typing import Optional
 
 import typer
+from ffmpeg import FFmpegError  # type: ignore
 from rich import print
+from rich.markup import escape
 from typing_extensions import Annotated
 
 from .constants import Constants
@@ -51,12 +53,18 @@ def main(
         raise typer.Exit()
 
     try:
-        print(f"[bold green] [Compressing...] {input}[/bold green]")
+        print("[green]⠹ Processing...[/green]")
+        print(f"[green]{escape(f'[{input}]')}[/green]")
         compress_video(input_file=input, output_file=output, overwrite=overwrite)
-    except Exception as e:
-        error_message: str = Constants.ERROR_MESSAGE
+    except FFmpegError as e:
+        ffmpeg_error_message: str = e.message
         if debug:
-            error_message += f"\n {e}"
-
-        print(f"[bold red]{error_message}[/bold red]")
+            ffmpeg_error_message += f"\n{e.arguments}"
+        print(f"[bold red]{ffmpeg_error_message}[/bold red]")
+    except Exception as e:
+        unknown_error_message: str = Constants.UNKNOWN_ERROR_MESSAGE
+        if debug:
+            unknown_error_message += f"\n{e}"
+        print(f"[bold red]{unknown_error_message}[/bold red]")
+    else:
         raise typer.Exit()

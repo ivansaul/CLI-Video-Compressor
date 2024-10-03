@@ -6,4 +6,5 @@ class Constants:
     OVERWRITE_HELP_TEXT = "Overwrite existing output file."
     UTILS_PANEL_TEXT = "Customization and Utils"
     ERROR_MESSAGE = "An error occurred while compressing the video 💥."
+    UNKNOWN_ERROR_MESSAGE = "An unknown error occurred 💥."
     FFMPEG_NOT_INSTALLED = "[bold red]ffmpeg is not installed! 💥[/bold red]"
