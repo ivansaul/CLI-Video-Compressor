@@ -13,6 +13,7 @@ pack = "pack.cli:app"
 python = "^3.10"
 typer = "^0.12.5"
 ffmpeg-progress-yield = "^0.9.1"
+python-ffmpeg = "^2.0.12"
 
 
 [tool.poetry.group.dev.dependencies]
