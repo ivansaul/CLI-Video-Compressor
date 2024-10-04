@@ -1,11 +1,26 @@
 import json
 import re
 
-from ffmpeg import FFmpeg, Progress  # type: ignore
+from ffmpeg import FFmpeg, FFmpegError, Progress  # type: ignore
 from rich.progress import Progress as ProgressBar
 
 from .constants import Constants
 from .helpers import add_affixes
+
+
+def _rethrow_ffmpeg_error(error: FFmpegError) -> None:
+    """
+    Rethrow an FFmpegError if the error message matches the pattern.
+    Args:
+        error (FFmpegError): The FFmpegError to be rethrow.
+    """
+
+    # For more context, refer to: https://github.com/ivansaul/compress-video/pull/3
+    pattern = Constants.FFMPEG_FILE_ALREADY_EXISTS_ERROR_PATTERN
+    match = re.search(pattern, error.message, re.IGNORECASE)
+
+    if not match:
+        raise error
 
 
 def _get_duration(path: str) -> float:
@@ -86,12 +101,14 @@ def compress_video(
 
         @ffmpeg.on("stderr")
         def on_stderr(line):
-            # This pattern checks for errors like "File 'input_compressed.mp4' already exists."
-            # Such errors may occur on Linux, but not on macOS, even when using the "-n" flag with ffmpeg.
-            # For more context, refer to: https://github.com/ivansaul/compress-video/pull/3
-            pattern = r".*File.*already exists.*"
+            # This pattern checks for errors like "File 'input_compressed.mp4' already exists.".
+            # Such errors may occur on Linux, even when using the "-n" flag with ffmpeg.
+            pattern = Constants.FFMPEG_FILE_ALREADY_EXISTS_ERROR_PATTERN
             match = re.search(pattern, line, re.IGNORECASE)
             if match:
                 progress_bar.update(task, completed=100)
 
-        ffmpeg.execute()
+        try:
+            ffmpeg.execute()
+        except FFmpegError as error:
+            _rethrow_ffmpeg_error(error)
