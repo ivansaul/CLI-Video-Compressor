@@ -27,6 +27,8 @@ def main(
     output: Annotated[
         Optional[str],
         typer.Option(
+            "--output",
+            "-o",
             show_default=True,
             help=Constants.OUTPUT_HELP_TEXT,
         ),
@@ -34,6 +36,8 @@ def main(
     quality: Annotated[
         int,
         typer.Option(
+            "--quality",
+            "-q",
             show_default=True,
             help=Constants.QUALITY_HELP_TEXT,
         ),
@@ -41,6 +45,8 @@ def main(
     overwrite: Annotated[
         bool,
         typer.Option(
+            "--overwrite",
+            "-w",
             show_default=True,
             help=Constants.OVERWRITE_HELP_TEXT,
         ),
@@ -48,13 +54,16 @@ def main(
     delete_original: Annotated[
         bool,
         typer.Option(
+            "--delete-original",
+            "-d",
             help=Constants.DELETE_ORIGINAL_HELP_TEXT,
-            rich_help_panel=Constants.UTILS_PANEL_TEXT,
         ),
     ] = False,
     debug: Annotated[
         bool,
         typer.Option(
+            "--verbose",
+            "-v",
             help=Constants.DEBUG_HELP_TEXT,
             rich_help_panel=Constants.UTILS_PANEL_TEXT,
         ),
