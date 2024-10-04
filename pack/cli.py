@@ -31,6 +31,13 @@ def main(
             help=Constants.OUTPUT_HELP_TEXT,
         ),
     ] = None,
+    quality: Annotated[
+        int,
+        typer.Option(
+            show_default=True,
+            help=Constants.QUALITY_HELP_TEXT,
+        ),
+    ] = 75,
     overwrite: Annotated[
         bool,
         typer.Option(
@@ -69,7 +76,12 @@ def main(
                 style="green",
                 markup=False,
             )
-            compress_video(input_file=input, output_file=output, overwrite=overwrite)
+            compress_video(
+                input_file=input,
+                output_file=output,
+                overwrite=overwrite,
+                quality=quality,
+            )
             if delete_original:
                 delete_path(input)
         except FFmpegError as e:
@@ -102,6 +114,7 @@ def main(
                 compress_video(
                     input_file=video_path,
                     overwrite=overwrite,
+                    quality=quality,
                 )
                 if delete_original:
                     delete_path(video_path)

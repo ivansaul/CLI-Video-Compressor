@@ -6,6 +6,7 @@ from rich.progress import Progress as ProgressBar
 
 from .constants import Constants
 from .helpers import add_affixes
+from .utils import convert_quality_to_crf
 
 
 def _rethrow_ffmpeg_error(error: FFmpegError) -> None:
@@ -61,6 +62,7 @@ def compress_video(
     input_file: str,
     output_file: str | None = None,
     overwrite: bool = False,
+    quality: int = 75,
 ):
     """
     Compress a video file using FFmpeg and display the progress in a terminal.
@@ -78,11 +80,18 @@ def compress_video(
     else:
         output = add_affixes(input_file, suffix=Constants.COMPRESSED_SUFFIX)
 
+    crf = convert_quality_to_crf(quality)
+
     ffmpeg = (
         FFmpeg()
         .option("y" if overwrite else "n")
         .input(input_file)
-        .output(output, vcodec="h264", acodec="aac")
+        .output(
+            output,
+            vcodec="h264",
+            acodec="aac",
+            crf=crf,
+        )
     )
 
     with ProgressBar() as progress_bar:

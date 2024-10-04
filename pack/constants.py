@@ -5,6 +5,7 @@ class Constants:
     DEBUG_HELP_TEXT = "Enable debugging."
     DELETE_ORIGINAL_HELP_TEXT = "Delete the original video after compression."
     OVERWRITE_HELP_TEXT = "Overwrite existing output file."
+    QUALITY_HELP_TEXT = "Video quality level from range [0, 100]. Default is 75. Lower values mean (lower quality, higher compression). Higher values mean (higher quality, lower compression)."
     UTILS_PANEL_TEXT = "Customization and Utils"
     ERROR_MESSAGE = "An error occurred while compressing the video 💥."
     UNKNOWN_ERROR_MESSAGE = "An unknown error occurred 💥."
