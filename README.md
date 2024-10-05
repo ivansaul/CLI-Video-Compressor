@@ -26,8 +26,7 @@ It reduces file sizes by up to 60% while maintaining high quality, using `FFmpeg
 
 ---
 
-<!-- TODO: Add demo -->
-<!-- ![demo][demo] -->
+![demo][demo]
 
 ## Instalación
 
@@ -53,10 +52,6 @@ pip install git+https://github.com/ivansaul/CLI-Video-Compressor.git
     # Fedora
     sudo dnf install ffmpeg
     ```
-
-    > [!TIP]
-    > If you are a Windows user, you can install `ffmpeg` and `python` manually or using package managers like [*`Scoop`*][scoop].
-    > Once you have installed a package manager, you can just run something like `scoop install python ffmpeg`.
 
 </details>
 
@@ -172,6 +167,10 @@ This command will compress `video.mp4` with a quality of 80, save the result as 
 - It's always recommended to backup your original videos before using the delete option (`-d`).
 - The verbose mode (`-v`) is useful for diagnosing issues or better understanding the compression process.
 
+> [!TIP]
+> If you are a Windows user, you can install `ffmpeg` and `python` manually or using package managers like [*`Scoop`*][scoop].
+> Once you have installed a package manager, you can just run something like `scoop install python ffmpeg`.
+
 ## Contribuidores
 
 <a href="https://github.com/ivansaul/CLI-Video-Compressor/graphs/contributors">
@@ -186,4 +185,5 @@ This command will compress `video.mp4` with a quality of 80, save the result as 
 
 [python]:https://www.python.org/downloads/
 [ffmpeg]:https://ffmpeg.org
-<!-- [demo]:url -->
+[demo]:https://github.com/user-attachments/assets/9c9c672a-bfa3-418a-b7d1-89f0e7751146
+[scoop]:https://scoop.sh
