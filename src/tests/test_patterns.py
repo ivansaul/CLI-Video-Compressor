@@ -2,7 +2,7 @@ import re
 
 import pytest
 
-from pack.constants import Constants
+from vidpack.constants import Constants
 
 
 @pytest.mark.parametrize(

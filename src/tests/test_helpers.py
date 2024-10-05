@@ -3,7 +3,7 @@ from unittest.mock import patch
 
 import pytest
 
-from pack.helpers import add_affixes, file_exists, is_ffmpeg_installed
+from vidpack.helpers import add_affixes, file_exists, is_ffmpeg_installed
 
 
 @pytest.mark.parametrize(
@@ -51,7 +51,7 @@ def test_ffmpeg_not_installed(monkeypatch):
     assert is_ffmpeg_installed() is False
 
 
-@patch("pack.helpers.Path.exists")
+@patch("vidpack.helpers.Path.exists")
 def test_file_exists(mock_exists):
     """
     Test file_exists function with different scenarios.

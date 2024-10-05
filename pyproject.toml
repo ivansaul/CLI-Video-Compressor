@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "pack"
+name = "vidpack"
 version = "0.1.0"
 description = "A Python script for efficiently compressing videos without sacrificing quality"
 authors = ["ivansaul"]
@@ -7,7 +7,7 @@ license = "MIT"
 readme = "README.md"
 
 [tool.poetry.scripts]
-pack = "pack.cli:app"
+pack = "src.vidpack.cli:app"
 
 [tool.poetry.dependencies]
 python = "^3.10"
