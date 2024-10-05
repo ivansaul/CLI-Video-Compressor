@@ -9,7 +9,7 @@
     <b><a href="#">CLI Video Compressor</a></b>
 </h1>
 
-~***`Pack`***~ is a simple yet powerful CLI video compressor.
+***`Pack`*** is a simple yet powerful CLI video compressor.
 
 It reduces file sizes by up to 60% while maintaining high quality, using `FFmpeg` under the hood. Compress individual videos or entire folders with ease.
 
