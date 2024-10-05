@@ -12,6 +12,7 @@
         "acodec",
         "ffprobe",
         "ivansaul",
+        "pacman",
         "typer",
         "vcodec"
     ],
