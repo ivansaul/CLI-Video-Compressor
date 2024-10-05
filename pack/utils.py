@@ -1,54 +1,43 @@
-from ffmpeg_progress_yield import FfmpegProgress
-from rich.console import Console
-from rich.progress import Progress
+import os
+from pathlib import Path
 
-from .helpers import add_affixes, file_exists
+from .constants import Constants
 
 
-def compress_video(
-    input_file: str,
-    output_file: str | None,
-    overwrite: bool = False,
-):
+def list_unprocessed_videos(
+    source: str,
+    skip_suffix: str,
+) -> list[str]:
     """
-    Compress a video file using FFmpeg and display the progress in a terminal.
+    Get a list of all unprocessed video files in a directory.
 
     Args:
-        input_file (str): The path to the input video file.
-        output_file (str | None): The path to the output file. If not provided,
-                                  a suffix '_compressed' will be added to the input file name.
-        overwrite (bool): If True, overwrites the output file if it already exists.
-                         If False, the process will stop if the output file exists.
+        source (str): The path to the input directory.
+        skip_suffix (str): The suffix to skip when checking for processed files.
+
+    Returns:
+        list[str]: A list of all unprocessed video files in the input directory.
     """
+    videos: list[str] = []
+    for root, _, files in os.walk(source):
+        for file in files:
+            if file.endswith(Constants.SUPPORTED_VIDEO_FORMATS):
+                if not Path(file).stem.endswith(skip_suffix):
+                    videos.append(os.path.join(root, file))
+    return videos
 
-    if output := output_file:
-        pass
-    else:
-        output = add_affixes(input_file, suffix="_compressed")
 
-    if file_exists(output) and not overwrite:
-        console = Console()
-        console.print(
-            f" [Skipped][{output}][Already exists]",
-            style="bold green",
-            markup=False,
-        )
-        return
+def convert_quality_to_crf(quality: int) -> int:
+    """
+    Convert a quality level from range [0, 100] to a Constant Rate Factor (CRF)
+    value in range [23, 51]. Lower values mean (lower quality, higher compression).
+    Higher values mean (higher quality, lower compression).
 
-    command = [
-        "ffmpeg",
-        "-i",
-        input_file,
-        "-vcodec",
-        "h264",
-        "-acodec",
-        "aac",
-        output,
-        "-y" if overwrite else "-n",
-    ]
+    Args:
+        quality (int): The quality level to convert.
 
-    process = FfmpegProgress(command)
-    with Progress() as progress_bar:
-        task = progress_bar.add_task("", total=100, completed=0)
-        for progress in process.run_command_with_progress():
-            progress_bar.update(task, completed=progress)
+    Returns:
+        int: The CRF value.
+    """
+    c, q = 51 - 23, 100 - 0
+    return int(51 - quality * (c / q))
