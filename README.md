@@ -22,11 +22,11 @@ It reduces file sizes by up to 60% while maintaining high quality, using `FFmpeg
     <img alt="Discord Server" height="50" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg">
 </a>
 
-<b>
-    <a href="https://github.com/ivansaul/CLI-Video-Compressor"> English </a>
-    <a href="#">    |    </a>
-    <a href="https://github.com/ivansaul/CLI-Video-Compressor/blob/master/README.es.md"> Español </a>
-</b>
+<p align="center">
+    <a href="https://github.com/ivansaul/CLI-Video-Compressor/blob/master/README.md">English</a>
+    ｜
+    <a href="https://github.com/ivansaul/CLI-Video-Compressor/blob/master/README.es.md">Español</a>
+</p>
 
 </div>
 
