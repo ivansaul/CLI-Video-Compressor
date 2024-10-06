@@ -22,6 +22,12 @@ It reduces file sizes by up to 60% while maintaining high quality, using `FFmpeg
     <img alt="Discord Server" height="50" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3/assets/cozy/social/discord-plural_vector.svg">
 </a>
 
+<b>
+    <a href="https://github.com/ivansaul/CLI-Video-Compressor"> English </a>
+    <a href="#">    |    </a>
+    <a href="https://github.com/ivansaul/CLI-Video-Compressor/blob/master/README.es.md"> Español </a>
+</b>
+
 </div>
 
 ---
@@ -96,8 +102,6 @@ This command will compress `video.mp4` with default settings(quality: 75) and sa
 
 <details>
     <summary>Show more examples</summary>
-
-### Compress a single video file
 
 ### Specify an output file
 
