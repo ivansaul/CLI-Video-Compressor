@@ -11,13 +11,17 @@
     "cSpell.words": [
         "acodec",
         "ffprobe",
+        "github",
         "ivansaul",
         "pacman",
+        "pypa",
+        "pypi",
         "typer",
-        "vcodec"
+        "vcodec",
+        "vidpack"
     ],
     "python.testing.pytestArgs": [
-        "tests"
+        "src/tests"
     ],
     "python.testing.unittestEnabled": false,
     "python.testing.pytestEnabled": true,
