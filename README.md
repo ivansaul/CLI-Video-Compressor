@@ -33,7 +33,7 @@ It reduces file sizes by up to 60% while maintaining high quality, using `FFmpeg
 You might be sure that you have installed [*`Python 3.10+`*][python] and [*`FFmpeg`*][ffmpeg]. The CLI app uses `FFmpeg` under the hood, so make sure you have it installed and added to your PATH.
 
 ```console
-pip install git+https://github.com/ivansaul/CLI-Video-Compressor.git
+pip install -U vidpack
 ```
 
 <details>
