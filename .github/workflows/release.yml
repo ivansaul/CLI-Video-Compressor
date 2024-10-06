@@ -34,7 +34,7 @@ jobs:
           git_committer_email: "actions@users.noreply.github.com"
 
       - name: Publish | Upload package to PyPI
-        uses: pypa/gh-action-pypi-publish@v1
+        uses: pypa/gh-action-pypi-publish@release/v1
         if: steps.release.outputs.released == 'true'
         with:
           password: ${{ secrets.TEST_PYPI_TOKEN }}
