@@ -1,13 +1,24 @@
 [tool.poetry]
-name = "pack"
+name = "vidpack"
 version = "0.1.0"
 description = "A Python script for efficiently compressing videos without sacrificing quality"
 authors = ["ivansaul"]
 license = "MIT"
 readme = "README.md"
+homepage = "https://github.com/ivansaul/CLI-Video-Compressor"
+repository = "https://github.com/ivansaul/CLI-Video-Compressor"
+keywords = ["video", "compression", "ffmpeg", "python"]
+include = ["LICENSE"]
+classifiers = [
+    "Operating System :: OS Independent",
+    "Development Status :: 3 - Alpha",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Utilities",
+]
 
 [tool.poetry.scripts]
-pack = "pack.cli:app"
+pack = "src.vidpack.cli:app"
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -20,6 +31,19 @@ python-ffmpeg = "^2.0.12"
 pytest = "^8.3.3"
 ruff = "^0.6.8"
 pytest-mock = "^3.14.0"
+python-semantic-release = "^9.9.0"
+
+[tool.semantic_release]
+version_source = "tag"
+version_variable = ["src/vidpack/__init__.py:__version__"]
+version_toml = ["pyproject.toml:tool.poetry.version"]
+branch = "master"
+build_command = "pip install poetry && poetry build"
+major_on_zero = true
+allow_zero_version = true
+upload_to_pypi = true
+upload_to_release = true
+commit_version_number = true
 
 [build-system]
 requires = ["poetry-core"]
