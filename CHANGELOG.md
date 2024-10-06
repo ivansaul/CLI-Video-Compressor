@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## v0.1.1 (2024-10-06)
+
+### Documentation
+
+* docs: update README.md
+
+Update the README to reflect the new package name &#34;vidpack&#34; and provide the installation command using pip ([`568da86`](https://github.com/ivansaul/CLI-Video-Compressor/commit/568da8686a752f457e44087fb349ed16b2cfd6d7))
+
+### Fix
+
+* fix: update `pack` script path in `pyproject.toml`
+
+The `pack` script was previously referencing the wrong path, causing an error when trying to run the command. This commit fixes the issue by updating the path to correctly point to the `vidpack.cli:app` entry point. ([`1e46b00`](https://github.com/ivansaul/CLI-Video-Compressor/commit/1e46b0096b1d8e5302e8185e015c48d099a3fdb6))
+
+### Unknown
+
+* Merge pull request #15 from ivansaul/develop
+
+Fix script path and update README.md ([`91b115d`](https://github.com/ivansaul/CLI-Video-Compressor/commit/91b115dbdef19d6ced02a1a9e078eec144d7c93d))
+
 ## v0.1.0 (2024-10-06)
 
 ### Chore
