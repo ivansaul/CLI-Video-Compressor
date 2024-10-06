@@ -18,7 +18,7 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-pack = "src.vidpack.cli:app"
+pack = "vidpack.cli:app"
 
 [tool.poetry.dependencies]
 python = "^3.10"
