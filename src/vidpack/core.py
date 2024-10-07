@@ -6,6 +6,7 @@ from rich.progress import Progress as ProgressBar
 
 from .constants import Constants
 from .helpers import add_affixes
+from .models import VideoCodec
 from .utils import convert_quality_to_crf
 
 
@@ -63,6 +64,7 @@ def compress_video(
     output_file: str | None = None,
     overwrite: bool = False,
     quality: int = 75,
+    vcodec: VideoCodec = VideoCodec.H264,
 ):
     """
     Compress a video file using FFmpeg and display the progress in a terminal.
@@ -73,6 +75,10 @@ def compress_video(
                                   a suffix '_compressed' will be added to the input file name.
         overwrite (bool): If True, overwrites the output file if it already exists.
                          If False, the process will stop if the output file exists.
+        quality (int): The quality level of the compressed video. Default is 75.
+                       Lower values mean lower quality, higher compression.
+                       Higher values mean higher quality, lower compression.
+        vcodec (VideoCodec): The video codec to use for compression. Default is H264.
     """
 
     if output := output_file:
@@ -88,7 +94,7 @@ def compress_video(
         .input(input_file)
         .output(
             output,
-            vcodec="h264",
+            vcodec=vcodec.value,
             acodec="aac",
             crf=crf,
         )

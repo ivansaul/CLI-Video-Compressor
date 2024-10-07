@@ -34,7 +34,7 @@ It reduces file sizes by up to 60% while maintaining high quality, using `FFmpeg
 
 ![demo][demo]
 
-## Instalación
+## Installation | Upgrade
 
 You might be sure that you have installed [*`Python 3.10+`*][python] and [*`FFmpeg`*][ffmpeg]. The CLI app uses `FFmpeg` under the hood, so make sure you have it installed and added to your PATH.
 
@@ -88,7 +88,11 @@ Pack offers several options to customize the compression process:
 - `--quality`, `-q`: Defines the video quality level (0-100). Default value: 75.
 - `--overwrite`, `-w`: Overwrites the output file if it already exists.
 - `--delete-original`, `-d`: Deletes the original video after successful compression.
+- `--codec`, `-c`: Specifies the video codec to use for compression(`h264`, `libx265`). Default is `h264`.
 - `--verbose`, `-v`: Enables debugging mode for more information during the process.
+
+> [!IMPORTANT]
+> The H265 (`libx265`) codec offers superior compression quality and produces smaller file sizes compared to `H264`. However, encoding with H265 is more time-consuming and requires significantly more processing power. If you have a modern GPU and enough time for encoding, H265 is an excellent choice for reducing file sizes without sacrificing quality.
 
 ## Usage Examples
 
@@ -153,6 +157,16 @@ pack video.mp4 --delete-original
 
 The original `video.mp4` will be deleted after compression.
 
+### Specify a video codec
+
+To compress a video with a specific video codec (e.g., libx265):
+
+```console
+pack video.mp4 --codec libx265
+```
+
+This will compress the video with the libx265 codec, resulting in a smaller file size. Currently, only `h264` and `libx265` codecs are supported.
+
 ### Use multiple options
 
 You can combine multiple options in a single command:
@@ -175,7 +189,7 @@ This command will compress `video.mp4` with a quality of 80, save the result as 
 > If you are a Windows user, you can install `ffmpeg` and `python` manually or using package managers like [*`Scoop`*][scoop].
 > Once you have installed a package manager, you can just run something like `scoop install python ffmpeg`.
 
-## Contribuidores
+## Contributors
 
 <a href="https://github.com/ivansaul/CLI-Video-Compressor/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=ivansaul%2FCLI%2DVideo%2DCompressor"/>

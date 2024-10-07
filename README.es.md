@@ -34,7 +34,7 @@ Reduce el tamaño de los archivos hasta un 60% mientras mantiene una alta calida
 
 ![demo][demo]
 
-## Instalación
+## Instalación | Actualización
 
 Asegúrate de haber instalado [*`Python 3.10+`*][python] y [*`FFmpeg`*][ffmpeg]. La aplicación CLI usa `FFmpeg` internamente, así que asegúrate de tenerlo instalado y agregado a tu PATH.
 
@@ -87,8 +87,12 @@ Pack ofrece varias opciones para personalizar el proceso de compresión:
 - `--output`, `-o`: Especifica el archivo de salida donde se guardará el video comprimido.
 - `--quality`, `-q`: Define el nivel de calidad del video (0-100). Valor predeterminado: 75.
 - `--overwrite`, `-w`: Sobrescribe el archivo de salida si ya existe.
+- `--codec`, `-c`: Especifica el codec de video a utilizar para la compresión. Valor predeterminado: `h264`. Solo se admiten codecs `h264` y `libx265`.
 - `--delete-original`, `-d`: Elimina el video original después de la compresión exitosa.
 - `--verbose`, `-v`: Habilita el modo de depuración para obtener más información durante el proceso.
+
+> [!IMPORTANT]
+> El codec H265 (`libx265`) ofrece una mejor calidad de compresión y genera archivos más pequeños en comparación con `H264`. Sin embargo, la codificación con H265 toma más tiempo y requiere considerablemente más potencia de procesamiento. Si tienes una GPU moderna y suficiente tiempo para la codificación, H265 es una excelente opción para reducir el tamaño de los archivos sin comprometer la calidad.
 
 ## Ejemplos de uso
 
@@ -152,6 +156,16 @@ pack video.mp4 --delete-original
 ```
 
 El archivo original `video.mp4` será eliminado después de la compresión.
+
+### Especificar un codec de video
+
+Para comprimir un video con un codec de video específico (por ejemplo, libx265):
+
+```console
+pack video.mp4 --codec libx265
+```
+
+Esto comprimirá el video con el codec libx265, resultando en un archivo más pequeño. Actualmente, solo se admiten los codecs `h264` y `libx265`.
 
 ### Usar múltiples opciones
 
