@@ -1,5 +1,23 @@
 # CHANGELOG
 
+## v0.2.1 (2024-10-07)
+
+### Fix
+
+* fix: inherit str in VideoCodec enum for Typer compatibility
+
+Inherit from `str` in `VideoCodec` enum to ensure it behaves like a string, resolving Typer compatibility issue. ([`d6251f1`](https://github.com/ivansaul/CLI-Video-Compressor/commit/d6251f134bef02e214f81afce918abc0b45b5ba7))
+
+* fix: enforce valid quality range
+
+Added validation to ensure the quality argument falls within a valid range (0-100). This prevents potential errors and ensures that the user&#39;s input is always treated correctly. ([`631e60d`](https://github.com/ivansaul/CLI-Video-Compressor/commit/631e60d83d2e514dfe3e5d5a889bdcd74a6f6098))
+
+### Unknown
+
+* Merge pull request #19 from ivansaul/fix/cli-arguments-validations
+
+Fix cli arguments validations ([`30dbf9a`](https://github.com/ivansaul/CLI-Video-Compressor/commit/30dbf9ab953748bacb5d5f4844102711ea5affc2))
+
 ## v0.2.0 (2024-10-07)
 
 ### Documentation

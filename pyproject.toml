@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "vidpack"
-version = "0.2.0"
+version = "0.2.1"
 description = "A Python script for efficiently compressing videos without sacrificing quality"
 authors = ["ivansaul"]
 license = "MIT"
