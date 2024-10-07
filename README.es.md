@@ -189,6 +189,10 @@ Este comando comprimirá `video.mp4` con una calidad de 80, guardará el resulta
 > Si eres usuario de Windows, puedes instalar `ffmpeg` y `python` manualmente o usando gestores de paquetes como [*`Scoop`*][scoop].
 > Una vez que hayas instalado un gestor de paquetes, solo debes ejecutar algo como `scoop install python ffmpeg`.
 
+<!-- -->
+> [!TIP]
+> Los usuarios de Windows pueden ver un video tutorial en YouTube sobre el proceso de instalación [[Aquí]][demo-windows].
+
 ## Contribuidores
 
 <a href="https://github.com/ivansaul/CLI-Video-Compressor/graphs/contributors">
@@ -205,3 +209,4 @@ Este comando comprimirá `video.mp4` con una calidad de 80, guardará el resulta
 [ffmpeg]:https://ffmpeg.org
 [demo]:https://github.com/user-attachments/assets/9c9c672a-bfa3-418a-b7d1-89f0e7751146
 [scoop]:https://scoop.sh
+[demo-windows]: https://youtu.be/w1Pba7Bu0ZQ

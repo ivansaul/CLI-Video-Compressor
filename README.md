@@ -189,6 +189,10 @@ This command will compress `video.mp4` with a quality of 80, save the result as 
 > If you are a Windows user, you can install `ffmpeg` and `python` manually or using package managers like [*`Scoop`*][scoop].
 > Once you have installed a package manager, you can just run something like `scoop install python ffmpeg`.
 
+<!-- -->
+> [!TIP]
+> Windows user can watch a tutorial video on YouTube about the installation process [[Here]][demo-windows].
+
 ## Contributors
 
 <a href="https://github.com/ivansaul/CLI-Video-Compressor/graphs/contributors">
@@ -205,3 +209,4 @@ This command will compress `video.mp4` with a quality of 80, save the result as 
 [ffmpeg]:https://ffmpeg.org
 [demo]:https://github.com/user-attachments/assets/9c9c672a-bfa3-418a-b7d1-89f0e7751146
 [scoop]:https://scoop.sh
+[demo-windows]: https://youtu.be/w1Pba7Bu0ZQ
