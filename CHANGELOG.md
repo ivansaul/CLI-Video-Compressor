@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## v0.2.0 (2024-10-07)
+
+### Documentation
+
+* docs: update language switcher HTML for proper GitHub rendering ([`70e21b7`](https://github.com/ivansaul/CLI-Video-Compressor/commit/70e21b7840b0f7e07997445aaacdf45ae07b65d1))
+
+* docs: add Spanish README
+
+Add a Spanish translation of the README.md ([`414d595`](https://github.com/ivansaul/CLI-Video-Compressor/commit/414d59517e7c616923ecb0956971e4e944df0fe3))
+
+### Feature
+
+* feat: add support for libx265 video codec
+
+Adds the ability to choose between h264 and libx265 video codecs for compression, offering a more efficient compression option for users with modern GPUs. ([`61c71ab`](https://github.com/ivansaul/CLI-Video-Compressor/commit/61c71ab496db58894760dc88a49b03f4224ce949))
+
+### Unknown
+
+* Merge pull request #18 from ivansaul/feature/add-codec-option
+
+feat: add support for libx265 video codec ([`1f1aed8`](https://github.com/ivansaul/CLI-Video-Compressor/commit/1f1aed8017f1b748030df885672cdf46dffad940))
+
+* Merge pull request #17 from ivansaul/develop
+
+docs: update language switcher HTML for proper GitHub rendering ([`efe91f8`](https://github.com/ivansaul/CLI-Video-Compressor/commit/efe91f8e3945df61e423401f9d6f83c69ae706ca))
+
+* Merge pull request #16 from ivansaul/develop
+
+docs: add Spanish README ([`731aa00`](https://github.com/ivansaul/CLI-Video-Compressor/commit/731aa002d28c17a8344c13ee7dd3a838321be2f6))
+
 ## v0.1.1 (2024-10-06)
 
 ### Documentation
