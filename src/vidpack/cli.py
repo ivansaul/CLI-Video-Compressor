@@ -9,6 +9,7 @@ from typing_extensions import Annotated
 from .constants import Constants
 from .core import compress_video
 from .helpers import delete_path, is_dir, is_ffmpeg_installed, is_file
+from .models import VideoCodec
 from .utils import list_unprocessed_videos
 
 app = typer.Typer(rich_markup_mode="rich")
@@ -59,6 +60,15 @@ def main(
             help=Constants.DELETE_ORIGINAL_HELP_TEXT,
         ),
     ] = False,
+    vcodec: Annotated[
+        VideoCodec,
+        typer.Option(
+            "--codec",
+            "-c",
+            show_default=True,
+            help=Constants.VIDEO_CODEC_HELP_TEXT,
+        ),
+    ] = VideoCodec.H264,
     debug: Annotated[
         bool,
         typer.Option(
@@ -90,6 +100,7 @@ def main(
                 output_file=output,
                 overwrite=overwrite,
                 quality=quality,
+                vcodec=vcodec,
             )
             if delete_original:
                 delete_path(input)
@@ -124,6 +135,7 @@ def main(
                     input_file=video_path,
                     overwrite=overwrite,
                     quality=quality,
+                    vcodec=vcodec,
                 )
                 if delete_original:
                     delete_path(video_path)
