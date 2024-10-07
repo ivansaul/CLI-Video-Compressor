@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class VideoCodec(Enum):
+class VideoCodec(str, Enum):
     """
     Enum representing the supported video codecs.
     """

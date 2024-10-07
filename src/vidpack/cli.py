@@ -39,6 +39,9 @@ def main(
         typer.Option(
             "--quality",
             "-q",
+            min=0,
+            max=100,
+            clamp=True,
             show_default=True,
             help=Constants.QUALITY_HELP_TEXT,
         ),
