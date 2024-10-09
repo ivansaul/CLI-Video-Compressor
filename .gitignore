@@ -1,6 +1,8 @@
 # Custom
 tmp/
 *.mp4
+!src/tests/resources/sample*.mp4
+*compressed.mp4
 .DS_Store
 
 # Byte-compiled / optimized / DLL files
