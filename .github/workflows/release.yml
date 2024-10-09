@@ -24,9 +24,9 @@ jobs:
         run: pipx install poetry
 
       - name: Install FFmpeg
-        uses: FedericoCarboni/setup-ffmpeg@v3
+        uses: AnimMouse/setup-ffmpeg@v1
         with:
-          ffmpeg-version: release
+          version: master
       
       - name: Setup | Install Python
         uses: actions/setup-python@v5
@@ -41,6 +41,7 @@ jobs:
         run: poetry run pytest
 
   release:
+    needs: test
     runs-on: ubuntu-latest
     concurrency: release
 
