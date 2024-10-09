@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Optional
 
 import typer
@@ -8,7 +9,7 @@ from typing_extensions import Annotated
 
 from .constants import Constants
 from .core import compress_video
-from .helpers import delete_path, is_dir, is_ffmpeg_installed, is_file
+from .helpers import delete_path, is_ffmpeg_installed
 from .models import VideoCodec
 from .utils import list_unprocessed_videos
 
@@ -90,7 +91,13 @@ def main(
         print(Constants.FFMPEG_NOT_INSTALLED)
         raise typer.Exit()
 
-    if is_file(input):
+    input_path: Path = Path(input)
+
+    if not input_path.exists():
+        print(Constants.INVALID_INPUT_PATH_ERROR_MESSAGE)
+        raise typer.Exit()
+
+    if input_path.is_file():
         try:
             console.print(
                 "⠹ Processing...",
@@ -120,7 +127,7 @@ def main(
         else:
             raise typer.Exit()
 
-    if is_dir(input):
+    if input_path.is_dir():
         videos = list_unprocessed_videos(input, Constants.COMPRESSED_SUFFIX)
         if not videos:
             print("[green]There are not videos to process... 🚀[/green]")

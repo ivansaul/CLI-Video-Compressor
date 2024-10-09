@@ -14,3 +14,4 @@ class Constants:
     SUPPORTED_VIDEO_FORMATS = (".mp4", ".mov", ".avi", ".mkv", ".webm")
     COMPRESSED_SUFFIX = "_compressed"
     FFMPEG_FILE_ALREADY_EXISTS_ERROR_PATTERN = r".*File.*already exists.*"
+    INVALID_INPUT_PATH_ERROR_MESSAGE = "[bold red]ERROR: INPUT path does not exists. Please provide a valid file or directory path.[/bold red]"
