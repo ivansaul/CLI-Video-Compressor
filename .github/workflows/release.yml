@@ -22,6 +22,12 @@ jobs:
       - name: Install Poetry
         shell: bash
         run: pipx install poetry
+
+      - name: Install FFmpeg
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          ffmpeg-version: release
+          github-token: ${{ github.server_url == 'https://github.com' && github.token || '' }}
       
       - name: Setup | Install Python
         uses: actions/setup-python@v5
