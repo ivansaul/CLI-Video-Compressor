@@ -34,7 +34,7 @@ It reduces file sizes by up to 60% while maintaining high quality, using `FFmpeg
 
 ![demo][demo]
 
-## Installation | Upgrade
+## Installation | Upgrade |
 
 You might be sure that you have installed [*`Python 3.10+`*][python] and [*`FFmpeg`*][ffmpeg]. The CLI app uses `FFmpeg` under the hood, so make sure you have it installed and added to your PATH.
 
