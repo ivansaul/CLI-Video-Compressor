@@ -6,6 +6,9 @@ on:
       - develop
       - feature/*
 
+    paths-ignore:
+      - '*.md'
+
 jobs:
   test:
     strategy:
