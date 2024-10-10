@@ -48,3 +48,8 @@ commit_version_number = true
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff.lint]
+preview = true
+select = ['E', 'F', 'W', 'I']
+ignore = ["E501"]
