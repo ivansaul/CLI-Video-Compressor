@@ -1,5 +1,19 @@
 # CHANGELOG
 
+## v0.3.1 (2024-10-10)
+
+### Fix
+
+* fix: input validation and error handling
+
+Adds validation to ensure the input file or directory exists before processing. Also, provides a more informative error message when the input path is invalid. ([`463c120`](https://github.com/ivansaul/CLI-Video-Compressor/commit/463c1208fac6cd0b9483a8e050c0b061e902da2c))
+
+### Unknown
+
+* Merge pull request #24 from ivansaul/fix/input-validation
+
+fix: input validation and error handling ([`1479b22`](https://github.com/ivansaul/CLI-Video-Compressor/commit/1479b224e222aa342be9a7ad0ff4b65febd12f87))
+
 ## v0.3.0 (2024-10-10)
 
 ### Documentation
