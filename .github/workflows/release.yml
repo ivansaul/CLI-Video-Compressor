@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         python-version: ["3.10"]
-        os: [ubuntu-latest]
+        os: [ubuntu-latest, windows-latest]
         # os: [ubuntu-latest, macos-latest, windows-latest]
     
     runs-on: ${{ matrix.os }}
@@ -39,7 +39,7 @@ jobs:
         run: poetry install --with=dev
 
       - name: Run Tests with Pytest
-        run: poetry run pytest --color=no
+        run: poetry run pytest
 
   release:
     needs: test
