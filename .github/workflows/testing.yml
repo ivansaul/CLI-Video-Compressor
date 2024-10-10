@@ -1,15 +1,11 @@
-name: Continuous Delivery
+name: Continuous Integration
 
 on:
   push:
-    branches:
-      - master
     paths-ignore:
       - '*.md'
   
   pull_request:
-    branches:
-      - master
     paths-ignore:
       - '*.md'
 
@@ -48,26 +44,3 @@ jobs:
 
       - name: Run Tests with Pytest
         run: poetry run pytest
-
-  release:
-    needs: test
-    runs-on: ubuntu-latest
-    concurrency: release
-
-    permissions:
-      id-token: write
-      contents: write
-
-    steps:
-      - name: Setup | Checkout Repository at workflow sha
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          ref: ${{ github.sha }}
-
-      - name: Setup | Force correct release branch on workflow sha
-        run: |
-          git checkout -B ${{ github.ref_name }} ${{ github.sha }}
-
-      - name: Publish | Build and Publish to PyPi
-        run: echo "Publishing to PyPi"
