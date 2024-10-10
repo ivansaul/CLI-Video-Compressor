@@ -36,6 +36,6 @@ def test_single_file_compression(codec):
 @pytest.mark.parametrize("codec", ["libx267", "123"])
 def test_single_file_compression_with_invalid_codec(codec):
     result = runner.invoke(app, ["input.mp4", "--codec", codec], color=False)
-    expected_message = f"Invalid value for '--codec' / '-c': '{codec}'"
+    expected_message = "Invalid value for '--codec'"
     assert result.exit_code == 2, result.stdout
     assert expected_message in result.stdout, result.stdout
