@@ -1,5 +1,33 @@
 # CHANGELOG
 
+## v0.3.0 (2024-10-10)
+
+### Documentation
+
+* docs: add Windows installation tutorial link
+
+Adds a link to a YouTube tutorial for installing the necessary software on Windows.
+This makes it easier for Windows users to get started with the CLI Video Compressor. ([`2d094ad`](https://github.com/ivansaul/CLI-Video-Compressor/commit/2d094adb8e80661361eec728bb66b03fc8847ac1))
+
+### Feature
+
+* feat: add basic unit tests
+
+Adds basic unit tests for the CLI and helper functions.
+Includes:
+- Test cases for compression with various codecs, quality settings, overwrite options, and output paths.
+- Tests for checking if FFmpeg is installed and file existence. ([`da5640e`](https://github.com/ivansaul/CLI-Video-Compressor/commit/da5640e26d77327a0071309e9c6f4ca255f63e77))
+
+### Unknown
+
+* Merge pull request #23 from ivansaul/feature/implement-tests
+
+feat: add basic unit tests ([`60300ac`](https://github.com/ivansaul/CLI-Video-Compressor/commit/60300ac483d339e8026e5ce999768d921c2168f9))
+
+* Merge pull request #20 from ivansaul/develop
+
+docs: add Windows installation tutorial link ([`b85a6f5`](https://github.com/ivansaul/CLI-Video-Compressor/commit/b85a6f59a0a1aa442751a3ee25e904aff7c26593))
+
 ## v0.2.1 (2024-10-07)
 
 ### Fix
