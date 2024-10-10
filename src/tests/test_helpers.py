@@ -1,4 +1,5 @@
 import subprocess
+from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -6,22 +7,23 @@ import pytest
 from vidpack.helpers import add_affixes, file_exists, is_ffmpeg_installed
 
 
-# @pytest.mark.parametrize(
-#     "file, prefix, suffix, expected_output",
-#     [
-#         ("/path/to/file.txt", "", "", "/path/to/file.txt"),
-#         ("file.txt", "prefix_", "", "prefix_file.txt"),
-#         ("/path/to/file.txt", "", "_suffix", "/path/to/file_suffix.txt"),
-#         ("/file.txt", "prefix_", "_suffix", "/prefix_file_suffix.txt"),
-#     ],
-# )
-# def test_add_affixes(file, prefix, suffix, expected_output):
-#     """
-#     Test add_affixes function with different combinations of prefix and suffix.
-#     """
+@pytest.mark.parametrize(
+    "file, prefix, suffix, expected_output",
+    [
+        (Path("/path/to/file.txt"), "", "", Path("/path/to/file.txt")),
+        (Path("file.txt"), "prefix_", "", Path("prefix_file.txt")),
+        (Path("/path/to/file.txt"), "", "_suffix", Path("/path/to/file_suffix.txt")),
+        (Path("/file.txt"), "prefix_", "_suffix", Path("/prefix_file_suffix.txt")),
+    ],
+)
+def test_add_affixes(file, prefix, suffix, expected_output):
+    """
+    Test add_affixes function with different combinations of prefix and suffix.
+    """
 
-#     result = add_affixes(file=file, prefix=prefix, suffix=suffix)
-#     assert result == expected_output
+    # Convert file and expected_output to string before passing to the function
+    result = add_affixes(file=str(file), prefix=prefix, suffix=suffix)
+    assert result == str(expected_output)
 
 
 def test_ffmpeg_installed(monkeypatch):
