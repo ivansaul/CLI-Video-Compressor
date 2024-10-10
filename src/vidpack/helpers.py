@@ -42,17 +42,17 @@ def add_affixes(file: str, prefix: str = "", suffix: str = "") -> str:
     return str(path.with_name(new_file_name))
 
 
-def file_exists(file: str) -> bool:
+def path_exists(path: str) -> bool:
     """
-    Check if a file exists.
+    Check if a path exists.
 
     Args:
-        file (str): The path to the file.
+        path (str): The path to check.
 
     Returns:
-        bool: True if the file exists, False otherwise.
+        bool: True if the path exists, False otherwise.
     """
-    return Path(file).exists()
+    return Path(path).exists()
 
 
 def is_file(path: str) -> bool:
