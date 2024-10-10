@@ -8,7 +8,7 @@ from typing_extensions import Annotated
 
 from .constants import Constants
 from .core import compress_video
-from .helpers import delete_path, is_dir, is_ffmpeg_installed, is_file
+from .helpers import delete_path, is_dir, is_ffmpeg_installed, is_file, path_exists
 from .models import VideoCodec
 from .utils import list_unprocessed_videos
 
@@ -88,6 +88,13 @@ def main(
 
     if not is_ffmpeg_installed():
         print(Constants.FFMPEG_NOT_INSTALLED)
+        raise typer.Exit()
+
+    if not path_exists(input):
+        console.print(
+            Constants.INVALID_INPUT_PATH_ERROR_MESSAGE,
+            style="bold red",
+        )
         raise typer.Exit()
 
     if is_file(input):
