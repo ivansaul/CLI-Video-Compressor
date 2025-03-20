@@ -89,7 +89,6 @@ Pack offers several options to customize the compression process:
 - `--overwrite`, `-w`: Overwrites the output file if it already exists.
 - `--delete-original`, `-d`: Deletes the original video after successful compression.
 - `--codec`, `-c`: Specifies the video codec to use for compression(`h264`, `libx265`). Default is `h264`.
-- `--verbose`, `-v`: Enables debugging mode for more information during the process.
 
 > [!IMPORTANT]
 > The H265 (`libx265`) codec offers superior compression quality and produces smaller file sizes compared to `H264`. However, encoding with H265 is more time-consuming and requires significantly more processing power. If you have a modern GPU and enough time for encoding, H265 is an excellent choice for reducing file sizes without sacrificing quality.
@@ -172,7 +171,7 @@ This will compress the video with the libx265 codec, resulting in a smaller file
 You can combine multiple options in a single command:
 
 ```console
-pack video.mp4 -o compressed.mp4 -q 80 -w -d -v
+pack video.mp4 -o compressed.mp4 -q 80 -w -d
 ```
 
 This command will compress `video.mp4` with a quality of 80, save the result as `compressed.mp4`, overwrite if the file exists, delete the original, and display detailed information during the process.
@@ -183,7 +182,6 @@ This command will compress `video.mp4` with a quality of 80, save the result as 
 
 - The quality option (`-q`) affects both visual quality and file size. A lower value will result in a smaller file but lower visual quality, while a higher value will maintain better quality but with a larger file size.
 - It's always recommended to backup your original videos before using the delete option (`-d`).
-- The verbose mode (`-v`) is useful for diagnosing issues or better understanding the compression process.
 
 > [!TIP]
 > If you are a Windows user, you can install `ffmpeg` and `python` manually or using package managers like [*`Scoop`*][scoop].
