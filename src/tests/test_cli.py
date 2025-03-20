@@ -1,4 +1,3 @@
-import os
 from pathlib import Path
 
 import pytest
@@ -23,8 +22,9 @@ def setup_teardown():
     Fixture to setup and teardown the test environment.
     """
     yield
-    for file in TEST_VIDEOS_PATH.glob("*_compressed.mp4"):
-        os.remove(file)
+    for file in TEST_VIDEOS_PATH.glob("*.mp4"):
+        if file.name.endswith(("_compressed.mp4", "output.mp4")):
+            file.unlink(missing_ok=True)
 
 
 def test_single_file_compression_with_default_options():
@@ -124,9 +124,9 @@ def test_single_file_compression_with_wrong_path():
 
     Expected results:
         - Exit code: 0
-        - Error message: "INPUT path does not exists"
+        - Error message: "Invalid value for 'INPUT': Path"
     """
     result = runner.invoke(app, [WRONG_INPUT])
-    expected_message = "INPUT path does not exists"
-    assert result.exit_code == 0, result.stdout
+    expected_message = "Invalid value for 'INPUT': Path"
+    assert result.exit_code == 2, result.stdout
     assert expected_message in result.stdout

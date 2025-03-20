@@ -89,7 +89,6 @@ Pack ofrece varias opciones para personalizar el proceso de compresión:
 - `--overwrite`, `-w`: Sobrescribe el archivo de salida si ya existe.
 - `--codec`, `-c`: Especifica el codec de video a utilizar para la compresión. Valor predeterminado: `h264`. Solo se admiten codecs `h264` y `libx265`.
 - `--delete-original`, `-d`: Elimina el video original después de la compresión exitosa.
-- `--verbose`, `-v`: Habilita el modo de depuración para obtener más información durante el proceso.
 
 > [!IMPORTANT]
 > El codec H265 (`libx265`) ofrece una mejor calidad de compresión y genera archivos más pequeños en comparación con `H264`. Sin embargo, la codificación con H265 toma más tiempo y requiere considerablemente más potencia de procesamiento. Si tienes una GPU moderna y suficiente tiempo para la codificación, H265 es una excelente opción para reducir el tamaño de los archivos sin comprometer la calidad.
@@ -172,7 +171,7 @@ Esto comprimirá el video con el codec libx265, resultando en un archivo más pe
 Puedes combinar múltiples opciones en un solo comando:
 
 ```console
-pack video.mp4 -o compressed.mp4 -q 80 -w -d -v
+pack video.mp4 -o compressed.mp4 -q 80 -w -d
 ```
 
 Este comando comprimirá `video.mp4` con una calidad de 80, guardará el resultado como `compressed.mp4`, sobrescribirá el archivo si existe, eliminará el original y mostrará información detallada durante el proceso.
@@ -183,7 +182,6 @@ Este comando comprimirá `video.mp4` con una calidad de 80, guardará el resulta
 
 - La opción de calidad (`-q`) afecta tanto la calidad visual como el tamaño del archivo. Un valor más bajo resultará en un archivo más pequeño pero con menor calidad visual, mientras que un valor más alto mantendrá mejor calidad pero con un archivo más grande.
 - Siempre es recomendable hacer una copia de seguridad de tus videos originales antes de usar la opción de eliminación (`-d`).
-- El modo detallado (`-v`) es útil para diagnosticar problemas o entender mejor el proceso de compresión.
 
 > [!TIP]
 > Si eres usuario de Windows, puedes instalar `ffmpeg` y `python` manualmente o usando gestores de paquetes como [*`Scoop`*][scoop].

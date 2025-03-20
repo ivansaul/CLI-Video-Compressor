@@ -1,97 +1,57 @@
 import shutil
-import subprocess
+from functools import wraps
 from pathlib import Path
+from typing import Any, Callable
+
+from rich import box, print
+from rich.panel import Panel
 
 
-def is_ffmpeg_installed() -> bool:
+def ffmpeg_required(func: Callable) -> Callable:
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
+        if not shutil.which("ffmpeg"):
+            raise Exception("ffmpeg is not installed")
+        return func(*args, **kwargs)
+
+    return wrapper
+
+
+def try_except(func: Callable) -> Callable:
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> Any:
+        try:
+            return func(*args, **kwargs)
+        except Exception as e:
+            panel = Panel(
+                f"{e}",
+                title="[red]Error[/red]",
+                border_style="red",
+                title_align="left",
+                box=box.ROUNDED,
+                expand=False,
+            )
+            print(panel)
+
+    return wrapper
+
+
+def add_affixes(target: str | Path, prefix: str = "", suffix: str = "") -> Path:
     """
-    Check if ffmpeg is installed.
-
-    Returns:
-        bool: True if ffmpeg is installed, False otherwise.
-    """
-    try:
-        subprocess.run(
-            ["ffmpeg", "-version"],
-            check=True,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        return True
-    except FileNotFoundError:
-        return False
-
-
-def add_affixes(file: str, prefix: str = "", suffix: str = "") -> str:
-    """
-    Add a prefix and suffix to a file path, preserving the file extension.
+    Add a prefix and suffix to a target path, preserving the file extension.
 
     Args:
-        file (str): The original file path.
-        prefix (str): The prefix to add before the file name (default is an empty string).
-        suffix (str): The suffix to add before the file extension (default is an empty string).
+        target (str | Path): The original target path.
+        prefix (str): The prefix to add before the target (default: "").
+        suffix (str): The suffix to add before the target (default: "").
 
     Returns:
-        str: The new file path with the prefix and suffix added.
+        str: The new target path with the prefix and suffix added.
 
     Example:
         /path/to/file.mp4 -> /path/to/prefix_file_suffix.mp4
+        /path/to/dir -> /path/to/prefix_dir_suffix
     """
-    path = Path(file)
+    path = target if isinstance(target, Path) else Path(target)
     new_file_name = f"{prefix}{path.stem}{suffix}{path.suffix}"
-    return str(path.with_name(new_file_name))
-
-
-def path_exists(path: str) -> bool:
-    """
-    Check if a path exists.
-
-    Args:
-        path (str): The path to check.
-
-    Returns:
-        bool: True if the path exists, False otherwise.
-    """
-    return Path(path).exists()
-
-
-def is_file(path: str) -> bool:
-    """
-    Check if a path is a file.
-
-    Args:
-        path (str): The path to the file.
-
-    Returns:
-        bool: True if the path is a file, False otherwise.
-    """
-    return Path(path).is_file()
-
-
-def is_dir(path: str) -> bool:
-    """
-    Check if a path is a directory.
-
-    Args:
-        path (str): The path to the directory.
-
-    Returns:
-        bool: True if the path is a directory, False otherwise.
-    """
-    return Path(path).is_dir()
-
-
-def delete_path(path: str) -> None:
-    """
-    Delete a file or folder. If the path is a directory, it will be deleted recursively.
-    If the path does not exist, it will be silently ignored.
-
-    Args:
-        path (str): The path to the file or folder.
-    """
-    target = Path(path)
-    if target.exists():
-        if target.is_file():
-            target.unlink()
-        elif target.is_dir():
-            shutil.rmtree(target)
+    return path.with_name(new_file_name)
