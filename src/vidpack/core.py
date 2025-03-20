@@ -1,13 +1,18 @@
 import json
 import re
+import shutil
+from pathlib import Path
 
 from ffmpeg import FFmpeg, FFmpegError, Progress  # type: ignore
+from rich.console import Console
 from rich.progress import Progress as ProgressBar
 
 from .constants import Constants
-from .helpers import add_affixes
-from .models import VideoCodec
+from .helpers import add_affixes, ffmpeg_required
+from .models import CompressParams
 from .utils import convert_quality_to_crf
+
+console = Console()
 
 
 def _rethrow_ffmpeg_error(error: FFmpegError) -> None:
@@ -25,11 +30,11 @@ def _rethrow_ffmpeg_error(error: FFmpegError) -> None:
         raise error
 
 
-def _get_duration(path: str) -> float:
+def _get_duration(path: str | Path) -> float:
     """
     Get the duration of a video file using FFmpeg.
     Args:
-        path (str): The path to the video file.
+        path (str | Path): The path to the video file.
 
     Returns:
         float: The duration of the video in seconds.
@@ -59,51 +64,56 @@ def _get_progress_percentage(progress: Progress, duration: float) -> float:
     return round(current_time / duration * 100)
 
 
-def compress_video(
-    input_file: str,
-    output_file: str | None = None,
-    overwrite: bool = False,
-    quality: int = 75,
-    vcodec: VideoCodec = VideoCodec.H264,
-):
+@ffmpeg_required
+def compress_video(params: CompressParams) -> None:
     """
     Compress a video file using FFmpeg and display the progress in a terminal.
 
-    Args:
-        input_file (str): The path to the input video file.
-        output_file (str | None): The path to the output file. If not provided,
-                                  a suffix '_compressed' will be added to the input file name.
-        overwrite (bool): If True, overwrites the output file if it already exists.
-                         If False, the process will stop if the output file exists.
-        quality (int): The quality level of the compressed video. Default is 75.
-                       Lower values mean lower quality, higher compression.
-                       Higher values mean higher quality, lower compression.
-        vcodec (VideoCodec): The video codec to use for compression. Default is H264.
+    :params: CompressParams
     """
 
-    if output := output_file:
-        pass
-    else:
-        output = add_affixes(input_file, suffix=Constants.COMPRESSED_SUFFIX)
+    dst = params.dst if params.dst else params.default_dst
 
-    crf = convert_quality_to_crf(quality)
+    if not dst.suffix:
+        raise Exception("Invalid argument: Output must be a file")
+
+    if dst.exists() and not params.overwrite:
+        console.print(
+            "⠹ Processing...",
+            f"[{params.src.name}]",
+            "[File already exists]",
+            style="green",
+            markup=False,
+        )
+        return
+
+    tmp = add_affixes(dst, suffix=".tmp")
+
+    crf = convert_quality_to_crf(params.quality)
 
     ffmpeg = (
         FFmpeg()
-        .option("y" if overwrite else "n")
-        .input(input_file)
+        .option("y" if params.overwrite else "n")
+        .input(params.src)
         .output(
-            output,
-            vcodec=vcodec.value,
+            tmp,
+            vcodec=params.vcodec.value,
             acodec="aac",
             crf=crf,
         )
     )
 
+    console.print(
+        "⠹ Processing...",
+        f"[{params.src.name}]",
+        style="green",
+        markup=False,
+    )
+
     with ProgressBar() as progress_bar:
         task = progress_bar.add_task("", total=100, completed=0)
 
-        duration = _get_duration(input_file)
+        duration = _get_duration(params.src)
 
         @ffmpeg.on("progress")
         def on_progress(progress: Progress):
@@ -125,5 +135,48 @@ def compress_video(
 
         try:
             ffmpeg.execute()
+
+            tmp.rename(dst)
+
+            if params.delete_original:
+                params.src.unlink(missing_ok=True)
+
         except FFmpegError as error:
             _rethrow_ffmpeg_error(error)
+
+        finally:
+            tmp.unlink(missing_ok=True)
+
+
+@ffmpeg_required
+def compress_videos_recursively(params: CompressParams) -> None:
+    dst = params.dst if params.dst else params.default_dst
+
+    if dst.suffix:
+        raise Exception("Invalid argument: Output must be a directory")
+
+    count = 0
+    videos_count = 0
+
+    for file in params.src.rglob("*"):
+        if file.suffix.lower() in Constants.SUPPORTED_VIDEO_FORMATS:
+            videos_count += 1
+
+    for file in params.src.rglob("*"):
+        if not file.is_file():
+            continue
+
+        relative_path = file.relative_to(params.src)
+        output_file = dst / relative_path
+
+        Path(output_file).parent.mkdir(parents=True, exist_ok=True)
+
+        if file.suffix.lower() in Constants.SUPPORTED_VIDEO_FORMATS:
+            console.print(f"[{count} / {videos_count}] ", style="green", end="")
+            compress_video(params.copy_with(src=file, dst=output_file))
+            count += 1
+        else:
+            shutil.copy2(file, output_file)
+
+    if params.delete_original:
+        shutil.rmtree(params.src, ignore_errors=True)
