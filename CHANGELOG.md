@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## v0.3.3 (2025-03-20)
+
+### Fix
+
+* fix: initialize processed videos counter to 1 ([`d4cb561`](https://github.com/ivansaul/CLI-Video-Compressor/commit/d4cb561490ac2fca1755e46f8cb1b0323a4bdb18))
+
+### Refactor
+
+* refactor: improve variable names for clarity in compress_videos_recursively
+
+Rename `count` to `processed_videos` and `videos_count` to `total_videos`
+to make their purpose clearer. ([`29c68a8`](https://github.com/ivansaul/CLI-Video-Compressor/commit/29c68a84c07418f104c1a3645a3733a30f282237))
+
+### Unknown
+
+* Merge pull request #26 from ivansaul/develop
+
+fix: initialize processed videos counter to 1 in compress_videos_recursively ([`85c548b`](https://github.com/ivansaul/CLI-Video-Compressor/commit/85c548bb60a3a3daed508c47af08ccdc7992bfcd))
+
 ## v0.3.2 (2025-03-20)
 
 ### Documentation
