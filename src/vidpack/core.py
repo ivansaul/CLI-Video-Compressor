@@ -155,12 +155,12 @@ def compress_videos_recursively(params: CompressParams) -> None:
     if dst.suffix:
         raise Exception("Invalid argument: Output must be a directory")
 
-    count = 1
-    videos_count = 0
+    processed_videos = 1
+    total_videos = 0
 
     for file in params.src.rglob("*"):
         if file.suffix.lower() in Constants.SUPPORTED_VIDEO_FORMATS:
-            videos_count += 1
+            total_videos += 1
 
     for file in params.src.rglob("*"):
         if not file.is_file():
@@ -172,9 +172,12 @@ def compress_videos_recursively(params: CompressParams) -> None:
         Path(output_file).parent.mkdir(parents=True, exist_ok=True)
 
         if file.suffix.lower() in Constants.SUPPORTED_VIDEO_FORMATS:
-            console.print(f"[{count} / {videos_count}] ", style="green", end="")
+            console.print(
+                f"[{processed_videos} / {total_videos}] ", style="green", end=""
+            )
             compress_video(params.copy_with(src=file, dst=output_file))
-            count += 1
+            processed_videos += 1
+            console.print()
         else:
             shutil.copy2(file, output_file)
 
