@@ -155,7 +155,7 @@ def compress_videos_recursively(params: CompressParams) -> None:
     if dst.suffix:
         raise Exception("Invalid argument: Output must be a directory")
 
-    count = 0
+    count = 1
     videos_count = 0
 
     for file in params.src.rglob("*"):
