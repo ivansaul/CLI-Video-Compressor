@@ -1,5 +1,31 @@
 # CHANGELOG
 
+## v0.3.2 (2025-03-20)
+
+### Documentation
+
+* docs: remove verbose option from README examples and documentation ([`dfe8fbe`](https://github.com/ivansaul/CLI-Video-Compressor/commit/dfe8fbefaad6f1164156c341d51b923ee5eaad6d))
+
+### Fix
+
+* fix: update FFmpeg installation logic for macOS and other platforms ([`57eb376`](https://github.com/ivansaul/CLI-Video-Compressor/commit/57eb376c213f1eeb19900343d1005abf1b42ca3f))
+
+* fix: update FFmpeg version to 7.1 in GitHub workflow ([`814f0b6`](https://github.com/ivansaul/CLI-Video-Compressor/commit/814f0b61d6961d3657d0ee76858457a2ee96e5db))
+
+### Refactor
+
+* refactor: improve test cleanup logic ([`cd24013`](https://github.com/ivansaul/CLI-Video-Compressor/commit/cd240133d26ffe9be0f61145e931434d9eac91ec))
+
+* refactor: enhance video compression logic and improve parameter handling ([`f9895a7`](https://github.com/ivansaul/CLI-Video-Compressor/commit/f9895a78362e5efe8cba7acf36102ea26650177c))
+
+* refactor: simplify ffmpeg checks and enhance error handling ([`df304a2`](https://github.com/ivansaul/CLI-Video-Compressor/commit/df304a2da41b3b730bd0aef9d5d96f96918815be))
+
+### Unknown
+
+* Merge pull request #25 from ivansaul/develop
+
+refactor: enhance video compression logic and parameter handling ([`67835c9`](https://github.com/ivansaul/CLI-Video-Compressor/commit/67835c93fd98514593a818e7609d3759ed892fd0))
+
 ## v0.3.1 (2024-10-10)
 
 ### Fix
